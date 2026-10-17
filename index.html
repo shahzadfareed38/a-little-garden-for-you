@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211b3d">
+  <title>A Little Garden for Wajiha 💗</title>
+  <style>
+    :root {
+      --night: #211b3d;
+      --pink: #ffb8d2;
+      --cream: #fff4f7;
+      --glass: rgba(30, 20, 47, .78);
+      --line: rgba(255, 190, 220, .35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--cream);
+      font-family: "Trebuchet MS", system-ui, sans-serif;
+      background: var(--night);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px clamp(16px, 4vw, 56px);
+      background: rgba(25, 22, 52, .97);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .subtitle {
+      color: #f4cddd;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .header-heart {
+      color: var(--pink);
+      font-size: 28px;
+      margin-right: 8px;
+    }
+
+    .sound {
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      color: var(--cream);
+      background: transparent;
+      padding: 9px 13px;
+      cursor: pointer;
+    }
+
+    main {
+      min-height: calc(100vh - 126px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 34px 18px 46px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(24, 17, 43, .15), rgba(23, 14, 35, .40) 55%, rgba(19, 14, 30, .82)),
+        url("garden-background.png") center 46% / cover fixed, #4c315d;
+    }
+
+    .intro {
+      text-align: center;
+      max-width: 700px;
+      z-index: 1;
+      text-shadow: 0 2px 12px #25152e;
+    }
+
+    h1 {
+      font-size: clamp(27px, 5vw, 47px);
+      margin: 8px 0 10px;
+      color: #fff2f7;
+    }
+
+    .intro p {
+      font-size: clamp(15px, 2vw, 18px);
+      line-height: 1.7;
+      margin: 0 auto;
+    }
+
+    .hint {
+      display: inline-block;
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      background: rgba(28, 20, 45, .62);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    .garden {
+      width: min(100%, 1000px);
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px 14px;
+      margin: 42px auto 0;
+      z-index: 1;
+    }
+
+    .flower {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 0;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      padding: 10px 4px;
+      border-radius: 18px;
+      transition: transform .2s, background .2s;
+      min-width: 0;
+    }
+
+    .flower:hover,
+    .flower:focus-visible {
+      transform: translateY(-7px) scale(1.04);
+      background: rgba(31, 18, 49, .35);
+      outline: 2px solid var(--pink);
+      outline-offset: 2px;
+    }
+
+    .bloom {
+      font-size: clamp(40px, 6vw, 70px);
+      filter: drop-shadow(0 0 12px rgba(255, 190, 222, .65));
+      line-height: 1.2;
+    }
+
+    .flower-name {
+      margin-top: 7px;
+      font-weight: 700;
+      font-size: clamp(11px, 1.6vw, 15px);
+      background: rgba(31, 21, 48, .78);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 9px 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .tiny-heart {
+      color: #ffb5d1;
+      margin-top: 3px;
+    }
+
+    .note {
+      width: min(92vw, 440px);
+      margin: 32px auto 0;
+      padding: 25px 25px 22px;
+      border-radius: 22px;
+      color: #352346;
+      background: rgba(255, 244, 248, .96);
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .3);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .note[hidden] {
+      display: none;
+    }
+
+    .note h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+    }
+
+    .note p {
+      line-height: 1.75;
+      font-size: 16px;
+      margin: 0 0 18px;
+      white-space: pre-line;
+    }
+
+    .close {
+      border: 0;
+      border-radius: 999px;
+      background: #b67eaa;
+      color: white;
+      padding: 10px 22px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .bottom-message {
+      margin-top: 28px;
+      font-style: italic;
+      text-align: center;
+      color: #ffd5e5;
+      z-index: 1;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 17px clamp(16px, 4vw, 55px);
+      background: #1b1830;
+      color: #f6d9e5;
+      font-size: 13px;
+    }
+
+    .signature {
+      font-style: italic;
+    }
+
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      animation: float 6s ease-in-out infinite;
+      opacity: .8;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0);
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(12deg);
+      }
+    }
+
+    @media (max-width:650px) {
+      header {
+        align-items: flex-start;
+      }
+
+      .garden {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px 8px;
+        margin-top: 28px;
+      }
+
+      main {
+        padding: 27px 12px 35px;
+        background-attachment: scroll;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div>
+      <div class="brand"><span class="header-heart">♥</span>A Little Garden for My Wajiha 🌸</div>
+      <div class="subtitle">Small flowers · Big feelings · All for you 💗</div>
+    </div>
+    <button class="sound" id="surpriseBtn" type="button">One more surprise ✨</button>
+  </header>
+
+  <main>
+    <span class="sparkle" style="top:12%;left:12%;font-size:25px">✦</span>
+    <span class="sparkle" style="top:22%;right:12%;font-size:20px;animation-delay:1s">♡</span>
+    <section class="intro">
+      <h1>A garden made just for you</h1>
+      <p>If I could plant every kind thought I have about you,<br>the whole world would turn into a garden. 🌷</p>
+      <div class="hint">🌼 Tap any flower to read your little message</div>
+    </section>
+
+    <section class="garden" aria-label="Interactive flower garden">
+      <button class="flower" data-note="Your Smile"
+        data-message="Your smile is one of my favourite things in the world. It makes ordinary moments feel special. Keep smiling, because you look beautiful when you do. 💗"><span
+          class="bloom">🌷</span><span class="flower-name">Your Smile</span><span class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="Your Kindness"
+        data-message="Your kind heart is a beautiful thing. The way you care, understand, and think of others makes you special in ways words can't fully explain. 🌸"><span
+          class="bloom">🌼</span><span class="flower-name">Your Kindness</span><span
+          class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="Your Strength"
+        data-message="Never forget how capable you are. Every challenge you face is another chance to see your own strength. I believe in you, always. 🌻"><span
+          class="bloom">🌻</span><span class="flower-name">Your Strength</span><span
+          class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="Your Dreams"
+        data-message="I hope you keep chasing the things that make your eyes light up. May your hard work open beautiful doors, and may you always feel proud of how far you've come. ✨"><span
+          class="bloom">🪻</span><span class="flower-name">Your Dreams</span><span class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="Your Beauty"
+        data-message="Your beauty is more than what the eyes can see. It's in your words, your warmth, your little habits, and the person you are becoming. 💖"><span
+          class="bloom">🌹</span><span class="flower-name">Your Beauty</span><span class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="Our Memories"
+        data-message="Every conversation and every little moment becomes part of our story. I look forward to making many more memories with you, one day at a time. 🫶"><span
+          class="bloom">💐</span><span class="flower-name">Our Memories</span><span class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="Your Voice"
+        data-message="Even a simple conversation with you can make a day feel lighter. I hope we always keep sharing our thoughts, our laughter, and our little stories. 💕"><span
+          class="bloom">🌺</span><span class="flower-name">Your Voice</span><span class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="Your Support"
+        data-message="I hope we keep encouraging each other to grow, learn, and become better. I want to celebrate your wins and stand beside you through the difficult days too. 🤍"><span
+          class="bloom">🌼</span><span class="flower-name">Your Support</span><span class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="Our Future"
+        data-message="There are so many little things I look forward to: new memories, shared dreams, silly jokes, and building a life with care, patience, and love. One step at a time. 🌙"><span
+          class="bloom">🌸</span><span class="flower-name">Our Future</span><span class="tiny-heart">♥</span></button>
+      <button class="flower" data-note="A Little Thank You"
+        data-message="Thank you for being you. This tiny garden is made of code, but every message is here because you matter to me. I'm glad our paths crossed. ❤️"><span
+          class="bloom">🌷</span><span class="flower-name">Just for You</span><span class="tiny-heart">♥</span></button>
+    </section>
+
+    <section class="note" id="note" role="dialog" aria-live="polite" aria-labelledby="noteTitle" hidden>
+      <h2 id="noteTitle">A little note 💗</h2>
+      <p id="noteText"></p>
+      <button class="close" id="closeNote" type="button">Close ♡</button>
+    </section>
+    <div class="bottom-message">“You make ordinary moments feel a little more magical.” ♡</div>
+  </main>
+
+  <footer>
+    <span> &lt;/&gt; Made with love and a little bit of code 💗</span>
+    <span class="signature">Forever & Always ♡</span>
+  </footer>
+
+  <script>
+    const note = document.getElementById('note');
+    const noteTitle = document.getElementById('noteTitle');
+    const noteText = document.getElementById('noteText');
+
+    function showNote(title, message) {
+      noteTitle.textContent = title + ' ♡';
+      noteText.textContent = message;
+      note.hidden = false;
+      note.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    document.querySelectorAll('.flower').forEach((flower) => {
+      flower.addEventListener('click', () => showNote(flower.dataset.note, flower.dataset.message));
+    });
+    document.getElementById('closeNote').addEventListener('click', () => { note.hidden = true; });
+    document.getElementById('surpriseBtn').addEventListener('click', () => {
+      showNote('One last thing Wajiha 💖', 'Out of all the things I could create, I wanted to make something that reminds you how appreciated you are. This little garden is yours — click a flower whenever you need a smile. 🌷 \n\n Made especially for you, with love. ♡');
+      document.querySelectorAll('.bloom').forEach((b, i) => {
+        b.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.22) rotate(-8deg)' }, { transform: 'scale(1)' }], { duration: 650, delay: i * 55, easing: 'ease-in-out' });
+      });
+    });
+  </script>
+</body>
+
+</html>
